@@ -11,7 +11,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
-      theme: ThemeData(primarySwatch: Colors.purple, accentColor: Colors.amber),
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                      fontFamily: "OpenSans",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold))),
+          textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                  fontFamily: "OpenSans",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18)),
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand'),
       home: MyHomePage(),
     );
   }
@@ -29,13 +43,13 @@ class _MyHomePageState extends State<MyHomePage> {
   // final amountController = TextEditingController();
 
   final List<Transaction> _userTransaction = [
-    Transaction(
-        id: "t1", title: "new shoes", amount: 69.99, date: DateTime.now()),
-    Transaction(
-        id: "t1",
-        title: "Weekly Groceries",
-        amount: 16.53,
-        date: DateTime.now())
+    // Transaction(
+    //     id: "t1", title: "new shoes", amount: 69.99, date: DateTime.now()),
+    // Transaction(
+    //     id: "t1",
+    //     title: "Weekly Groceries",
+    //     amount: 16.53,
+    //     date: DateTime.now())
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -65,7 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personal Expenses'),
+        title: Text(
+          'Personal Expenses',
+          style: TextStyle(fontFamily: "OpenSans"),
+        ),
         actions: [
           IconButton(
               onPressed: () => _startAddNewTransaction(context),
