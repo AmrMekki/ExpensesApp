@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
 
 import './widgets/chart.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  //if we want to prevent landscape mode
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -95,25 +102,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Personal Expenses',
-          style: TextStyle(fontFamily: "OpenSans"),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () => _startAddNewTransaction(context),
-              icon: Icon(Icons.add))
-        ],
+    final appBar = AppBar(
+      title: Text(
+        'Personal Expenses',
+        style: TextStyle(fontFamily: "OpenSans"),
       ),
+      actions: [
+        IconButton(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: Icon(Icons.add))
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransaction, _deleteTransaction)
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(_userTransaction, _deleteTransaction))
           ],
         ),
       ),
